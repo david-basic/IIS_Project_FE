@@ -20,9 +20,9 @@ const Navigation = () => {
 						<Nav.Link href='/'>Link6</Nav.Link>
 						<Nav.Link href='/'>Link7</Nav.Link>
 					</Nav>
-					<Nav className="ms-auto">
+					{/* <Nav className="ms-auto">
 						<Nav.Link href='/'>Login</Nav.Link>
-					</Nav>
+					</Nav> */}
 				</Navbar.Collapse>
 			</Container>
 		</Navbar>
