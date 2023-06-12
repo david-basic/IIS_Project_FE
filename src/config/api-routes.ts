@@ -3,9 +3,9 @@ export const routesParams = {
 };
 
 const api_routes = {
-	ROUTE_VALIDATION_HOME: `${routesParams.VALIDATION_API}`,
 
 	ROUTE_VALIDATION_XSD: `${routesParams.VALIDATION_API}/validators/xsdValidation`,
+	ROUTE_UPLOAD_FILE: `${routesParams.VALIDATION_API}/validators/fileUpload`,
 };
 
 export default api_routes;
