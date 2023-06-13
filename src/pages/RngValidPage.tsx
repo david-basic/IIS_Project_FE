@@ -20,9 +20,8 @@ const props: UploadProps = {
 	maxCount: 1,
 };
 
-
 const RngValidPage = () => {
-    const [fileValidationResult, setFileValidationResult] = useState<any>();
+	const [fileValidationResult, setFileValidationResult] = useState<any>();
 	const { sendRequest: validateFileRequest } = useHttp();
 
 	const validationHandler = () => {
@@ -37,39 +36,39 @@ const RngValidPage = () => {
 			manageResponse.bind(null)
 		);
 	};
-    
+
 	return (
-        <div className='container-fluid'>
-        <div className='h1'>RNG validation Page</div>
-        <hr />
-        <div className='row'>
-            <div className='col'>
-                <div className='row'>
-                    <h3>Server file validation result:</h3>
-                    <div className='alert'>{fileValidationResult}</div>
-                </div>
-                <div className='row mt-2'>
-                    <button onClick={validationHandler} className='w-25'>
-                        Validate
-                    </button>
-                </div>
-            </div>
+		<div className='container-fluid'>
+			<div className='h1'>RNG validation Page</div>
+			<hr />
+			<div className='row'>
+				<div className='col'>
+					<div className='row'>
+						<h3>Server file validation result:</h3>
+						<div className='alert'>{fileValidationResult}</div>
+					</div>
+					<div className='row mt-2'>
+						<button onClick={validationHandler} className='w-25'>
+							Validate
+						</button>
+					</div>
+				</div>
 
-            <div className='vr'></div>
+				<div className='vr'></div>
 
-            <div className='col'>
-                <div className='row'>
-                    <div className='row'>
-                        <Upload {...props}>
-                            <Button icon={<UploadOutlined />}>
-                                Click to Upload
-                            </Button>
-                        </Upload>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+				<div className='col'>
+					<div className='row'>
+						<div className='row'>
+							<Upload {...props}>
+								<Button icon={<UploadOutlined />}>
+									Click to Upload
+								</Button>
+							</Upload>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	);
 };
 

@@ -1,11 +1,15 @@
 export const routesParams = {
-	VALIDATION_API: "http://localhost:8081",
+	API: "http://localhost:8081",
 };
 
 const api_routes = {
-	ROUTE_VALIDATION_XSD: `${routesParams.VALIDATION_API}/validators/xsdValidation`,
-	ROUTE_UPLOAD_FILE: `${routesParams.VALIDATION_API}/validators/fileUpload`,
-	ROUTE_VALIDATION_RNG: `${routesParams.VALIDATION_API}/validators/rngValidation`,
+	ROUTE_UPLOAD_FILE: `${routesParams.API}/validators/fileUpload`,
+	
+	ROUTE_VALIDATION_XSD: `${routesParams.API}/validators/xsdValidation`,
+	ROUTE_VALIDATION_RNG: `${routesParams.API}/validators/rngValidation`,
+
+	ROUTE_DHMZ_GET_CITIES: `${routesParams.API}/dhmz/getCities`,
+	ROUTE_DHMZ_GET_CITY: `${routesParams.API}/dhmz/getCity?grad=`,
 };
 
 export default api_routes;

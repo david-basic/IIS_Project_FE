@@ -5,6 +5,7 @@ import Homepage from "./pages/Homepage";
 import MainLayout from "./components/layout/MainLayout";
 import XsdValidPage from "./pages/XsdValidPage";
 import RngValidPage from "./pages/RngValidPage";
+import DhmzPage from "./pages/DhmzPage";
 
 const App = () => {
 	const homeRoute = {
@@ -22,7 +23,17 @@ const App = () => {
 		element: <MainLayout children={<RngValidPage />} />,
 	};
 
-	const routing = useRoutes([homeRoute, xsdValidRoute, rngValidRoute]);
+	const dhmzRoute = {
+		path: routes.ROUTE_DHMZ,
+		element: <MainLayout children={<DhmzPage />} />,
+	};
+
+	const routing = useRoutes([
+		homeRoute,
+		xsdValidRoute,
+		rngValidRoute,
+		dhmzRoute,
+	]);
 	return <>{routing}</>;
 };
 
