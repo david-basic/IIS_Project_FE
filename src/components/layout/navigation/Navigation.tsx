@@ -15,13 +15,8 @@ const Navigation = () => {
 						<Nav.Link href="/xsd">XSD</Nav.Link>
 						<Nav.Link href='/rng'>RNG</Nav.Link>
 						<Nav.Link href='/dhmz'>DHMZ</Nav.Link>
-						<Nav.Link href='/'>Link4</Nav.Link>
-						<Nav.Link href='/'>Link5</Nav.Link>
-						<Nav.Link href='/'>Link6</Nav.Link>
+						<Nav.Link href='/memes'>MEMES</Nav.Link>
 					</Nav>
-					{/* <Nav className="ms-auto">
-						<Nav.Link href='/'>Login</Nav.Link>
-					</Nav> */}
 				</Navbar.Collapse>
 			</Container>
 		</Navbar>

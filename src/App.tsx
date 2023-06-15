@@ -6,6 +6,7 @@ import MainLayout from "./components/layout/MainLayout";
 import XsdValidPage from "./pages/XsdValidPage";
 import RngValidPage from "./pages/RngValidPage";
 import DhmzPage from "./pages/DhmzPage";
+import MemesPage from "./pages/MemesPage";
 
 const App = () => {
 	const homeRoute = {
@@ -28,11 +29,17 @@ const App = () => {
 		element: <MainLayout children={<DhmzPage />} />,
 	};
 
+	const memesRoute = {
+		path: routes.ROUTE_MEMES_API,
+		element: <MainLayout children={<MemesPage />} />,
+	}
+
 	const routing = useRoutes([
 		homeRoute,
 		xsdValidRoute,
 		rngValidRoute,
 		dhmzRoute,
+		memesRoute,
 	]);
 	return <>{routing}</>;
 };
