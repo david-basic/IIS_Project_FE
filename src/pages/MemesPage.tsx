@@ -1,16 +1,50 @@
 import useHttp from "../hooks/use-http";
 import { useEffect, useState } from "react";
-import { Button, Form, Input, Select, message } from "antd";
+import {
+	Button,
+	Form,
+	Input,
+	Select,
+	Upload,
+	UploadFile,
+	UploadProps,
+	message,
+} from "antd";
 import { SelectOption } from "../config/SelectOption";
 import api_routes from "../config/api-routes";
 import useHttpImages from "../hooks/use-http-images";
+import { UploadOutlined } from "@ant-design/icons";
+import { RcFile } from "antd/es/upload/interface";
 
 const MemesPage = () => {
 	const { sendRequest: memeApiRequest } = useHttp();
 	const { sendRequest: memeApiImageRequest } = useHttpImages();
 	const [memesDropDown, setMemesDropDown] = useState<SelectOption[]>();
-	const [memeGenerated, setMemeGenerated] = useState<boolean>();
-	const [form] = Form.useForm();
+	const [generateMemeForm] = Form.useForm();
+	const [fileList, setFileList] = useState<UploadFile[]>([]);
+	const [uploading, setUploading] = useState(false);
+
+	const props: UploadProps = {
+		onRemove: (file) => {
+			const index = fileList.indexOf(file);
+			const newFileList = fileList.slice();
+			newFileList.splice(index, 1);
+			setFileList(newFileList);
+		},
+		beforeUpload: (file) => {
+			const isJPEG = file.type === "image/jpeg";
+			if (!isJPEG) {
+				message.error(`${file.name} is not a JPEG/JPG format file`);
+				return Upload.LIST_IGNORE;
+			} else {
+				setFileList([...fileList, file]);
+			}
+
+			return false;
+		},
+		fileList,
+		maxCount: 1,
+	};
 
 	useEffect(() => {
 		getAllMemes();
@@ -49,7 +83,7 @@ const MemesPage = () => {
 		);
 	};
 
-	const onFinish = (values: any) => {
+	const onFinishGenerateMeme = (values: any) => {
 		const top = values.top;
 		const bottom = values.bottom;
 		const meme = memesDropDown?.at(values.meme)?.label;
@@ -57,12 +91,11 @@ const MemesPage = () => {
 		const manageResponseData = (responseData: Blob) => {
 			console.log(responseData);
 			var imageUrl = URL.createObjectURL(responseData);
-			const image = document.querySelector<HTMLImageElement>("img");
+			const image = document.querySelector<HTMLImageElement>("#image");
 			image?.addEventListener("load", () =>
 				URL.revokeObjectURL(imageUrl)
 			);
-			document.querySelector<HTMLImageElement>("img")!!.src = imageUrl;
-			setMemeGenerated(true);
+			document.querySelector<HTMLImageElement>("#image")!!.src = imageUrl;
 		};
 
 		memeApiImageRequest(
@@ -80,23 +113,50 @@ const MemesPage = () => {
 		);
 	};
 
-	// const normFile = (e: any) => {
-	// 	if (Array.isArray(e)) {
-	// 		return e;
-	// 	}
-	// 	return e?.fileList;
-	// };
+	const handleMemeImageUpload = () => {
+		const formData = new FormData();
+		fileList.forEach((file) => {
+			formData.append("image", file as RcFile);
+		});
+		setUploading(true);
+
+		fetch("https://ronreiter-meme-generator.p.rapidapi.com/images", {
+			method: "POST",
+			headers: {
+				"X-RapidAPI-Key":
+					"20c67779b2msh6e4489c6d5dc1d3p13dd73jsn871b0ec0ab66",
+				"X-RapidAPI-Host": "ronreiter-meme-generator.p.rapidapi.com",
+			},
+			body: formData,
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				setFileList([]);
+				if(data.status === "error"){
+					message.error(data.message);
+				}else{
+					message.success(`Uploaded ${data.name} with ${data.message}`);
+				}
+			})
+			.catch((e) => {
+				message.error("upload failed.");
+			})
+			.finally(() => {
+				setUploading(false);
+			});
+	};
 
 	return (
 		<div className='container-fluid'>
 			<div className='h1'>MEMES Page</div>
 			<hr />
 			<div className='row'>
+				<h3>Generate meme</h3>
 				<div className='col'>
 					<div className='row'>
 						<Form
-							form={form}
-							onFinish={onFinish}
+							form={generateMemeForm}
+							onFinish={onFinishGenerateMeme}
 							labelCol={{ span: 4 }}
 							wrapperCol={{ span: 26 }}
 							layout='horizontal'
@@ -127,19 +187,6 @@ const MemesPage = () => {
 							<Form.Item label='Meme' name={"meme"}>
 								<Select options={memesDropDown} />
 							</Form.Item>
-							{/* <Form.Item
-								label='Upload'
-								valuePropName='fileList'
-								getValueFromEvent={normFile}>
-								<Upload listType='picture-card'>
-									<div>
-										<PlusOutlined />
-										<div style={{ marginTop: 8 }}>
-											Upload
-										</div>
-									</div>
-								</Upload>
-							</Form.Item> */}
 							<Form.Item>
 								<Button type='primary' htmlType='submit'>
 									Generate meme
@@ -154,6 +201,24 @@ const MemesPage = () => {
 						<img id='image' alt='Generated meme' src='' />
 					</div>
 				</div>
+			</div>
+			<hr />
+			<h3>Upload meme image</h3>
+			<div className='row'>
+				<div className='col'>
+					<Upload {...props}>
+						<Button icon={<UploadOutlined />}>Select File</Button>
+					</Upload>
+					<Button
+						type='primary'
+						onClick={handleMemeImageUpload}
+						disabled={fileList.length === 0}
+						loading={uploading}
+						style={{ marginTop: 16 }}>
+						{uploading ? "Uploading" : "Start Upload"}
+					</Button>
+				</div>
+				<div className='col'></div>
 			</div>
 		</div>
 	);
