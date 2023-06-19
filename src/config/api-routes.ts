@@ -8,6 +8,7 @@ const api_routes = {
 
 	ROUTE_VALIDATION_XSD: `${routesParams.VALIDATION_API}/validators/xsdValidation`,
 	ROUTE_VALIDATION_RNG: `${routesParams.VALIDATION_API}/validators/rngValidation`,
+	ROUTE_VALIDATION_JAXB: `${routesParams.VALIDATION_API}/validators/jaxbValidation`,
 
 	ROUTE_DHMZ_GET_CITIES: `${routesParams.VALIDATION_API}/dhmz/getCities`,
 	ROUTE_DHMZ_GET_CITY: `${routesParams.VALIDATION_API}/dhmz/getCity?grad=`,

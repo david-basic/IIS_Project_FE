@@ -14,6 +14,7 @@ const Navigation = () => {
 					<Nav>
 						<Nav.Link href="/xsd">XSD</Nav.Link>
 						<Nav.Link href='/rng'>RNG</Nav.Link>
+						<Nav.Link href='/jaxb'>JAXB</Nav.Link>
 						<Nav.Link href='/dhmz'>DHMZ</Nav.Link>
 						<Nav.Link href='/memes'>MEMES</Nav.Link>
 					</Nav>
