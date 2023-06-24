@@ -184,7 +184,13 @@ const MemesPage = () => {
 								]}>
 								<Input />
 							</Form.Item>
-							<Form.Item label='Meme' name={"meme"}>
+							<Form.Item label='Meme' name={"meme"} rules={[
+									{
+										required: true,
+										message:
+											"Select a meme image to display!",
+									},
+								]}>
 								<Select options={memesDropDown} />
 							</Form.Item>
 							<Form.Item>
@@ -204,7 +210,7 @@ const MemesPage = () => {
 			</div>
 			<hr />
 			<h3>Upload meme image</h3>
-			<div className='row'>
+			<div className='row mb-5'>
 				<div className='col'>
 					<Upload {...props}>
 						<Button icon={<UploadOutlined />}>Select File</Button>
