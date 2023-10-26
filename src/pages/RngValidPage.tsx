@@ -20,7 +20,7 @@ const props: UploadProps = {
 	maxCount: 1,
 };
 
-const XsdValidPage = () => {
+const RngValidPage = () => {
 	const [fileValidationResult, setFileValidationResult] = useState<any>();
 	const { sendRequest: validateFileRequest } = useHttp();
 
@@ -31,7 +31,7 @@ const XsdValidPage = () => {
 
 		validateFileRequest(
 			{
-				url: api_routes.ROUTE_VALIDATION_XSD,
+				url: api_routes.ROUTE_VALIDATION_RNG,
 			},
 			manageResponse.bind(null)
 		);
@@ -39,7 +39,7 @@ const XsdValidPage = () => {
 
 	return (
 		<div className='container-fluid'>
-			<div className='h1'>XSD validation Page</div>
+			<div className='h1'>RNG validation Page</div>
 			<hr />
 			<div className='row'>
 				<div className='col'>
@@ -72,4 +72,4 @@ const XsdValidPage = () => {
 	);
 };
 
-export default XsdValidPage;
+export default RngValidPage;
